@@ -42,7 +42,6 @@ exports.userRegister = async (req, res, next) => {
      
 
     } catch (err) {
-        console.log(err);
         return next(new httpError('Something went wrong, please try again'), 500)
     }
 }
@@ -58,7 +57,6 @@ const createRefreshToken = (user) => {
 exports.refreshToken = (req, res, next) => {
     try{
     const rf_token = req.cookies.refreshtoken;
-    console.log(req.cookies, 'sssssssss')
 
     if(!rf_token) return next(new httpError('Please login or register'), 400) 
     
@@ -67,10 +65,9 @@ exports.refreshToken = (req, res, next) => {
 
         const accessToken = createAccessToken({id: user.id})
 
-        res.json({user, accessToken})
+        res.json({accessToken})
     })
     
-    res.json({rf_token})
     } catch (err) {
         return next(new httpError(err.message), 500)
     }
