@@ -1,10 +1,9 @@
-
 const { verify } = require('jsonwebtoken');
 const boom = require('boom');
 
 const { getUserById } = require('./../queries/users');
 
-exports.authenticateUser = () => (req, res, next) => {
+module.exports = () => (req, res, next) => {
   const { cookies } = req;
 
   if (!cookies || !cookies.token) {
@@ -24,7 +23,6 @@ exports.authenticateUser = () => (req, res, next) => {
       .then(user => {
         // put the user info in the req to be accessed in the next middlewares
         req.user = user;
-        next();
       })
       .catch(() => next(boom.badImplementation()));
   }).catch(() => next(boom.badImplementation()));

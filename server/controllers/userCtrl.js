@@ -96,4 +96,17 @@ exports.loginUser = async (req, res, next) => {
   });
 };
 
+exports.logout = (req, res, next) => {
+    try {
+      res.clearCookie('token')
+      
+      return res.json({ 
+          status: 'success',
+          msg: 'Logged out'
+      })
+    } catch (err) {
+        return next(new httpError("Could not login, please try again", 500))
+    }
+}
+
 
