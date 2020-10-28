@@ -3,27 +3,20 @@ const boom = require('boom');
 
 const { getUserById } = require('./../queries/users');
 
-module.exports = () => (req, res, next) => {
-  const { cookies } = req;
+module.exports = () => (req, res, next) =>{
+    try {
+        const cookies = req.cookies ? (req.cookies) : {};
+        console.log(cookies.token)
+        if(!cookies.token) return res.status(400).json({msg: "Invalid Authentication"})
 
-  if (!cookies || !cookies.token) {
-    return next(boom.unauthorized('no credentials'));
-  }
+        verify(cookies.token, process.env.ACCESS_TOKEN_SECRET, (err, user) =>{
+            if(err) return res.status(400).json({msg: "Invalid Authentication"})
 
-  return verify(cookies.token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-    // if not valid send unauthorized error
-    if (err) {
-      res.clearCookie('token');
-      return next(boom.unauthorized('credentials are not valid'));
+            req.user = user
+            console.log(user)
+            next()
+        })
+    } catch (err) {
+        return res.status(500).json({msg: err.message})
     }
-
-    // get the user  Id from token
-    const { id } = decoded;
-    return getUserById(id, true)
-      .then(user => {
-        // put the user info in the req to be accessed in the next middlewares
-        req.user = user;
-      })
-      .catch(() => next(boom.badImplementation()));
-  }).catch(() => next(boom.badImplementation()));
-};
+}
