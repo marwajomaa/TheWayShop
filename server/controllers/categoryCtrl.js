@@ -46,11 +46,12 @@ exports.getCategory = async (req, res, next) => {
 exports.updateCategory = async (req, res, next) => {
   try {
     const {id} = req.params;
-    // const category = await Category.findOne({_id:id})
+    const {name} = req.body;
+    const category = await Category.findByIdAndUpdate({_id:id}, {name})
 
-    // if(!category) return next(new httpError('This category not exists', 400))
+    if(!category) return next(new httpError('This category not exists', 400))
 
-    res.json({msg: "updated"})
+    res.json({status: "success", msg: "Category has been updated successfully", category})
 
   } catch (err) {
     next(new httpError('something went wrong, please try again'))
