@@ -1,10 +1,12 @@
 const Users = require('../models/userModel')
 
-exports.authAdmin = async (req, res, next) => {
+module.exports = () => async (req, res, next) => {
     try {
-      const user = await Users.findOne({ id: req.user.id})
-
+      const user = await Users.findOne({ _id: req.user.userId})
+  
       if(user.role === 0) return res.status(400).json({msg: 'Admin resource access denied'})
+
+      next()
     } catch (err) {
         return res.status(500).json({msg: err.message})
     }

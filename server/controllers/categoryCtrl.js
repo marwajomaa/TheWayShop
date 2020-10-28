@@ -10,3 +10,12 @@ exports.getCategories = async (req, res, next) => {
       return next(new httpError('Something went wrong, please try again'))
     }
 }
+
+exports.createCategory = async (req, res, next) => {
+  try {
+    res.json({msg: 'admin auth check'})
+
+  } catch (err) {
+    next(new httpError('something went wrong, please try again'))
+  }
+}

@@ -81,7 +81,7 @@ exports.loginUser = async (req, res, next) => {
     return next(new httpError("Invalid credentials could not log you in", 401));
   }
 
-  let token = true;
+  let token;
   try {
 
      token = await createAccessToken({ userId: existingUser.id, email: existingUser.email })
@@ -89,6 +89,9 @@ exports.loginUser = async (req, res, next) => {
   } catch (err) {
     return next(new httpError("Could not login, please try again", 500));
   }
+
+  res.cookie('token', token, { maxAge: 1000000, httpOnly: true });
+  req.user = existingUser;
 
   res.status(200).json({
     status: "success",
