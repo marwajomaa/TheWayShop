@@ -34,3 +34,17 @@ exports.createProduct = async (req, res, next) => {
         return next(new httpError('Something went wrong, please try again'), 500)
     }
 }
+exports.updateProduct = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const {title, description, content, images, category, price} = req.body;
+
+      const product = await Products.findByIdAndUpdate({_id:id}, {title, description, content, images, category, price})
+
+      if (!product) return next(new httpError('No products found'), 400)
+
+      res.status(200).json({status: "success", msg: 'Product updated successfully'})
+    } catch (err) {
+        return next(new httpError('Something went wrong, please try again'), 500)
+    }
+}
