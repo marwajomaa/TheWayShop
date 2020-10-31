@@ -1,4 +1,4 @@
-const Category = require('../models/categoryModal')
+const Category = require('../models/categoryModel')
 const httpError = require('../middlewares/http-error')
 
 exports.getCategories = async (req, res, next) => {
