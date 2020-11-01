@@ -9,15 +9,10 @@ class APIfeatures {
     }
     filtering(){
        const queryObj = {...this.queryString} //queryString = req.query
-        // console.log(queryObj, 'before')
        const excludedFields = ['page', 'sort', 'limit']
        excludedFields.forEach(el => delete(queryObj[el]))
-    //    console.log(queryObj, 'after')
        let queryStr = JSON.stringify(queryObj)
-    //    console.log(queryStr)
        queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, match => '$' + match)
-    //    console.log(queryStr)
-       console.log(JSON.parse(queryStr))
     
        this.query.find(JSON.parse(queryStr))
          
@@ -27,7 +22,6 @@ class APIfeatures {
     sorting(){
         if(this.queryString.sort){
             const sortBy = this.queryString.sort.split(',').join(' ')
-            console.log(sortBy)
             this.query = this.query.sort(sortBy)
         }else{
             this.query = this.query.sort('-createdAt')
@@ -47,7 +41,6 @@ class APIfeatures {
 
 
 exports.getProducts = async (req, res, next) => {
-    console.log(req.query)
     try {
       const features = new APIfeatures(Products.find(), req.query).filtering().sorting().pagination()
       
