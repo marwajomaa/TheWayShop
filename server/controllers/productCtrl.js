@@ -2,13 +2,44 @@ const Products = require('../models/productModel')
 const httpError = require('../middlewares/http-error')
 
 
-exports.getAllProducts = async (req, res, next) => {
+class APIfeatures {
+    constructor(query, queryString){
+        this.query = query;
+        this.queryString = queryString;
+    }
+    filtering(){
+       const queryObj = {...this.queryString} //queryString = req.query
+        // console.log(queryObj, 'before')
+       const excludedFields = ['page', 'sort', 'limit']
+       excludedFields.forEach(el => delete(queryObj[el]))
+    //    console.log(queryObj, 'after')
+       let queryStr = JSON.stringify(queryObj)
+    //    console.log(queryStr)
+       queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, match => '$' + match)
+    //    console.log(queryStr)
+       console.log(JSON.parse(queryStr))
+    
+       this.query.find(JSON.parse(queryStr))
+         
+       return this;
+    }
+
+    sorting(){}
+
+     pagination(){}
+}
+
+
+exports.getProducts = async (req, res, next) => {
+    console.log(req.query)
     try {
-      const products = await Products.find()
+      const features = new APIfeatures(Products.find(), req.query).filtering()
+      
+      const products = await features.query
 
       if (!products) return next(new httpError('No products found'), 400)
 
-      res.status(200).json({status: "success", products})
+      res.status(200).json({status: "success", results: products.length, products})
     } catch (err) {
         return next(new httpError('Something went wrong, please try again'), 500)
     }
