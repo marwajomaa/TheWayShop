@@ -1,11 +1,18 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom"; 
+import { DataProvider } from './GlobalState';
+import Header from './components/Header'; 
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <h1>hello</h1>
-    </div>
+  <DataProvider>
+    <Router>
+      <div>
+        <Header />
+      </div>   
+    </Router>
+  </DataProvider>
   );
 }
 
