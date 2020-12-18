@@ -5,13 +5,15 @@ import ProductItem from "./ProductItem";
 
 function Products() {
   const state = useContext(GlobalState);
-  const { products } = state.productsAPI;
-  console.log(products);
+  const [products] = state.productsAPI.products;
+  if (!products) {
+    return <div>loading...</div>;
+  }
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} style={{ margin: "0 30px" }}>
       {products ? (
         products.map((product) => {
-          return <ProductItem />;
+          return <ProductItem key={product._id} product={product} />;
         })
       ) : (
         <Typography>Loading...</Typography>
