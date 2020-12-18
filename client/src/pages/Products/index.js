@@ -10,7 +10,7 @@ function Products() {
     return <div>loading...</div>;
   }
   return (
-    <Grid container spacing={3} style={{ margin: "0 30px" }}>
+    <Grid container spacing={3}>
       {products ? (
         products.map((product) => {
           return <ProductItem key={product._id} product={product} />;
