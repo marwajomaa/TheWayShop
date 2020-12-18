@@ -5,6 +5,7 @@ import {
   IconButton,
   Drawer,
   Link,
+  Grid,
   MenuItem,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -41,10 +42,12 @@ export default function Header() {
 
   const displayDesktop = () => {
     return (
-      <Toolbar className={toolbar}>
+      <Toolbar container xs={12} className={toolbar}>
         {Logo}
-        <div>{getMenuButtons()}</div>
-        {isLogin && <ShoppingCart />}
+        <div>
+          {getMenuButtons()}
+          {isLogin && <ShoppingCart />}
+        </div>
       </Toolbar>
     );
   };

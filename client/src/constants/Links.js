@@ -1,7 +1,7 @@
 export const headersData = [
   {
     label: "Products",
-    href: "/products",
+    href: "/",
   },
   {
     label: "Login",
