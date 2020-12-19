@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Grid, Box, makeStyles, Typography } from "@material-ui/core";
+
 import { GlobalState } from "../../GlobalState";
 import img from "../../assets/img.jpg";
 import Button from "../../components/Button";
 import ProductItem from "../Products/ProductItem";
+import Loading from "../../components/Loading";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -58,7 +60,7 @@ function ProductDetails() {
 
   const { title, description, sold, content, price, _id } = productDetails;
   const classes = useStyle();
-  if (productDetails.length === 0) return <p>Loading...</p>;
+  if (productDetails.length === 0) return <Loading />;
 
   return (
     <>
