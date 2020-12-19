@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 export function useForm(initialValues, validateOnChange, validate) {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,5 +25,7 @@ export function useForm(initialValues, validateOnChange, validate) {
     clearInputs,
     errors,
     setErrors,
+    submitError,
+    setSubmitError,
   };
 }

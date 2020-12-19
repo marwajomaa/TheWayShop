@@ -1,7 +1,7 @@
 import React from "react";
-import { Grid, makeStyles } from "@material-ui/core";
+import { Grid, Paper, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { useForm } from "../../hooks/useForm";
@@ -46,19 +46,29 @@ function Login() {
     if (fieldValues === values)
       return Object.values(temp).every((x) => x === "");
   };
-  const { values, handleInputChange, clearInputs, errors, setErrors } = useForm(
-    initialValues,
-    true,
-    validate
-  );
+  const {
+    values,
+    handleInputChange,
+    clearInputs,
+    errors,
+    setErrors,
+    submitError,
+    setSubmitError,
+  } = useForm(initialValues, true, validate);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(values);
     if (!validate()) {
       window.alert("form is not valid");
     }
     clearInputs();
+
+    try {
+      await axios.post("/api/users/login", { ...values });
+    } catch (err) {
+      setSubmitError(err.response.data.error);
+    }
   };
 
   const { container, Typography } = useStyles();
@@ -106,6 +116,17 @@ function Login() {
                   text="Login"
                 />
               </Grid>
+              {submitError && (
+                <Typography
+                  style={{
+                    color: "red",
+                    padding: "10px 0",
+                    textAlign: "center",
+                  }}
+                >
+                  {submitError}
+                </Typography>
+              )}
             </Grid>
           </form>
         </Grid>
