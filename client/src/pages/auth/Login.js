@@ -1,5 +1,6 @@
 import React from "react";
-import { Grid, Paper, makeStyles } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import { Grid, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Input from "../../components/Input";
@@ -28,6 +29,7 @@ const initialValues = {
 };
 
 function Login() {
+  const history = useHistory();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     if ("email" in fieldValues)
@@ -65,7 +67,11 @@ function Login() {
     clearInputs();
 
     try {
-      await axios.post("/api/users/login", { ...values });
+      const user = await axios.post("/api/users/login", { ...values });
+      localStorage.setItem("user", user.data.user);
+      localStorage.setItem("token", user.data.token);
+      localStorage.setItem("firstLogin", true);
+      history.push("/");
     } catch (err) {
       setSubmitError(err.response.data.error);
     }
@@ -131,9 +137,7 @@ function Login() {
           </form>
         </Grid>
         <Grid item>
-          <Link href="#" variant="body2">
-            Forgot Password?
-          </Link>
+          <Button text="Register" type="outlined" href="/signup" />
         </Grid>
       </Grid>
     </form>
