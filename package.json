@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/marwajomaa/Ecommerce-Website#readme",
   "dependencies": {
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "bcrypt": "^5.0.0",
     "boom": "^7.3.0",
     "cloudinary": "^1.23.0",

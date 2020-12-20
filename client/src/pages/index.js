@@ -19,7 +19,7 @@ function Pages({ style }) {
           component={ProductDetails}
         />
         <Route path="/login" exact component={Login} />
-        <Route path="/Signup" exact component={Signup} />
+        <Route path="/signup" exact component={Signup} />
         <Route path="/Cart" exact component={Cart} />
         <Route path="*" exact component={NotFound} />
       </Switch>
