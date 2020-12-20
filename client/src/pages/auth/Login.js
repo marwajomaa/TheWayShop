@@ -67,9 +67,10 @@ function Login() {
     clearInputs();
 
     try {
-      const user = await axios.post("/api/users/login", { ...values });
-      localStorage.setItem("user", user.data.user);
-      localStorage.setItem("token", user.data.token);
+      const res = await axios.post("/api/users/login", { ...values });
+      console.log(res.data.user, "000000000000000");
+      localStorage.setItem("user", res.data.user);
+      localStorage.setItem("token", res.data.token);
       localStorage.setItem("firstLogin", true);
       history.push("/");
     } catch (err) {
