@@ -27,6 +27,7 @@ const useStyles = makeStyles({
 export default function MediaCard({ product }) {
   const globalState = useContext(GlobalState);
   const [isLoggedIn] = globalState.token;
+  const addToCart = globalState.userAPI.addToCart;
   const [isAdmin] = globalState.userAPI.isAdmin;
   const { deleteProduct } = globalState.productsAPI;
   const { category, content, price, _id, checked } = product;
@@ -81,6 +82,7 @@ export default function MediaCard({ product }) {
               style={{ width: "50%" }}
               text="Buy"
               href={isLoggedIn ? "#" : "/signup"}
+              onClick={() => addToCart(product)}
             />
             <Button
               style={{ width: "50%" }}

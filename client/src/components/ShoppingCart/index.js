@@ -16,12 +16,13 @@ const { Cart } = useStyles;
 export const ShoppingCart = () => {
   const globalState = useContext(GlobalState);
   const [isLoggedIn] = globalState.token;
+  const [cart, setCart] = globalState.userAPI.cart;
   const [isAdmin] = globalState.userAPI.isAdmin;
   return (
     <>
       <IconButton>
         {isLoggedIn && !isAdmin ? (
-          <Badge badgeContent={5} color="secondary">
+          <Badge badgeContent={cart.length} color="secondary">
             <ShoppingCartIcon />
           </Badge>
         ) : (
