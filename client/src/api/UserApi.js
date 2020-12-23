@@ -12,6 +12,9 @@ function UserApi() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    // const res = localStorage.getItem("user");
+    // const user = JSON.parse(res);
+
     if (token) {
       setToken(token);
       setIsLoggedIn(true);
@@ -51,6 +54,7 @@ function UserApi() {
           headers: { Authorization: token },
         }
       );
+      console.log(res.data.cart);
     } else {
       alert("This product already in the shopping cart");
     }
@@ -67,8 +71,6 @@ function UserApi() {
         return item._id !== product._id;
       });
 
-      console.log(removeItem, "removeeeeeee");
-
       setCart([...removeItem]);
       const res = await axios.patch(
         "/api/users/cart",
@@ -77,7 +79,6 @@ function UserApi() {
           headers: { Authorization: token },
         }
       );
-      console.log(res.data.cart, "uuuuuuuuuuuuuuuuu");
     } catch (err) {
       console.warn(err.message);
     }

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Grid,
@@ -69,6 +69,17 @@ function Cart() {
   const removeProductFromCart = globalState.userAPI.removeProductFromCart;
   const [total, setTotal] = useState(0);
   const classes = useStyles();
+
+  useEffect(() => {
+    const getTotal = () => {
+      cart.reduce((acc, item) => {
+        const totalPrice = acc + item.price * item.quantity;
+        setTotal(totalPrice);
+        return totalPrice;
+      }, 0);
+    };
+    getTotal();
+  }, [cart]);
 
   if (cart.length === 0) {
     return (
