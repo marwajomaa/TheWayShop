@@ -5,20 +5,7 @@ function UserApi(token) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [user, setUser] = useState({});
-  const [cart, setCart] = useState([
-    {
-      _id: "5f9d8d26db4c0f3288cd1f74",
-      category: "labtops",
-      checked: false,
-      content: "thuis is one of the great products",
-      description: "great product",
-      price: 343,
-      product_id: "6",
-      quantity: 1,
-      sold: 0,
-      title: "product6",
-    },
-  ]);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     if (token) {
@@ -30,6 +17,7 @@ function UserApi(token) {
           });
           if (res) {
             setUser(res.data);
+            setCart(res.data.cart);
             if (res.data.role === 1) setIsAdmin(true);
           }
         } catch (err) {
@@ -40,7 +28,7 @@ function UserApi(token) {
     }
   }, [token]);
 
-  const addToCart = (product) => {
+  const addToCart = async (product) => {
     if (!isLoggedIn) alert("Please login to continue buying");
 
     const check = cart.every((item) => {
@@ -49,6 +37,13 @@ function UserApi(token) {
 
     if (check) {
       setCart([...cart, { ...product, quantity: 1 }]);
+      const res = await axios.patch(
+        "/api/users/cart",
+        { cart: [...cart, { ...product, quantity: 1 }] },
+        {
+          headers: { Authorization: token },
+        }
+      );
     } else {
       alert("This product already in the shopping cart");
     }

@@ -1,6 +1,7 @@
 const Users = require("../models/userModel");
 const httpError = require("../middlewares/http-error");
 const bcrypt = require("bcrypt");
+const { getUserById } = require("../queries/users");
 
 const {
   createAccessToken,
@@ -128,5 +129,24 @@ exports.getUser = async (req, res, next) => {
     res.json(user);
   } catch (err) {
     return next(new httpError(err.message, 500));
+  }
+};
+
+exports.updateCart = async (req, res) => {
+  try {
+    const user = await getUserById(req.user.userId);
+
+    if (!user) return res.status(500).json({ msg: "User not found" });
+
+    await Users.findOneAndUpdate(
+      { _id: req.user.userId },
+      { cart: req.body.cart }
+    );
+    return res.json({
+      status: "success",
+      msg: "Added to Cart successfully",
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
