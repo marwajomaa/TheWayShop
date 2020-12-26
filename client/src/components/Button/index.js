@@ -1,0 +1,17 @@
+import React from "react";
+import { makeStyles, Button as MuiButton } from "@material-ui/core";
+
+function Button({ variant, size, color, text, ...props }) {
+  return (
+    <MuiButton
+      variant={variant || "contained"}
+      size={size || "large"}
+      color={color || "default"}
+      {...props}
+    >
+      {text}
+    </MuiButton>
+  );
+}
+
+export default Button;

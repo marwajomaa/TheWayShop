@@ -5,27 +5,36 @@ import {
   IconButton,
   Drawer,
   Link,
+  Grid,
   MenuItem,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-import { headersData, headersDataLogin } from "../../constants/Links";
+import {
+  adminRoutes,
+  loggedRoutes,
+  unLoggedRoutes,
+} from "../../constants/Links";
 import { Logo } from "../Logo";
 import { ShoppingCart } from "../ShoppingCart";
 import { useStyles } from "./Header.Style.js";
+import { GlobalState } from "../../GlobalState";
 
 export default function Header() {
+  const globalState = useContext(GlobalState);
+  const [isLoggedIn] = globalState.token;
+  const [token] = globalState.userAPI.isLoggedIn;
+  const [isAdmin] = globalState.userAPI.isAdmin;
   const { header, menuButton, toolbar, drawerContainer } = useStyles();
 
   const [state, setState] = useState({
     mobileView: false,
     drawerOpen: false,
-    isLogin: true,
   });
 
-  const { mobileView, drawerOpen, isLogin } = state;
+  const { mobileView, drawerOpen } = state;
 
   useEffect(() => {
     const setResponsiveness = () => {
@@ -39,14 +48,127 @@ export default function Header() {
     window.addEventListener("resize", () => setResponsiveness());
   }, []);
 
+  useEffect(() => {
+    mobileRoutes();
+    desktopRoutes();
+  }, [isLoggedIn, token]);
+
   const displayDesktop = () => {
     return (
-      <Toolbar className={toolbar}>
-        {Logo}
-        <div>{getMenuButtons()}</div>
-        {isLogin && <ShoppingCart />}
+      <Toolbar container xs={12} className={toolbar}>
+        {isAdmin ? "ADMIN" : Logo}
+        <div>
+          {desktopRoutes()}
+          <ShoppingCart />
+        </div>
       </Toolbar>
     );
+  };
+
+  const mobileRoutes = () => {
+    if (isLoggedIn) {
+      if (isAdmin) {
+        return adminRoutes.map(({ label, href }) => {
+          return (
+            <Link
+              {...{
+                component: RouterLink,
+                to: href,
+                color: "inherit",
+                style: { textDecoration: "none" },
+                key: label,
+              }}
+            >
+              <MenuItem>{label}</MenuItem>
+            </Link>
+          );
+        });
+      }
+      return loggedRoutes.map(({ label, href }) => {
+        return (
+          <Link
+            {...{
+              component: RouterLink,
+              to: href,
+              color: "inherit",
+              style: { textDecoration: "none" },
+              key: label,
+            }}
+          >
+            <MenuItem>{label}</MenuItem>
+          </Link>
+        );
+      });
+    }
+    console.log("unLoggedRoutes");
+    return unLoggedRoutes.map(({ label, href }) => {
+      return (
+        <Link
+          {...{
+            component: RouterLink,
+            to: href,
+            color: "inherit",
+            style: { textDecoration: "none" },
+            key: label,
+          }}
+        >
+          <MenuItem>{label}</MenuItem>
+        </Link>
+      );
+    });
+  };
+
+  const desktopRoutes = () => {
+    if (isLoggedIn) {
+      if (isAdmin) {
+        return adminRoutes.map(({ label, href }) => {
+          return (
+            <Button
+              {...{
+                key: label,
+                color: "inherit",
+                to: href,
+                component: RouterLink,
+                className: menuButton,
+              }}
+            >
+              {label}
+            </Button>
+          );
+        });
+      }
+      return loggedRoutes.map(({ label, href }) => {
+        return (
+          <Button
+            {...{
+              key: label,
+              color: "inherit",
+              to: href,
+              component: RouterLink,
+              className: menuButton,
+            }}
+          >
+            {label}
+          </Button>
+        );
+      });
+    }
+    console.log("unLoggedRoutes");
+    return unLoggedRoutes.map(({ label, href }) => {
+      return (
+        <Button
+          {...{
+            key: label,
+            color: "inherit",
+            to: href,
+            component: RouterLink,
+            className: menuButton,
+          }}
+        >
+          {label}
+        </Button>
+      );
+    });
   };
 
   const displayMobile = () => {
@@ -77,66 +199,14 @@ export default function Header() {
               onClose: handleDrawerClose,
             }}
           >
-            <div className={drawerContainer}>{getDrawerChoices()}</div>
+            <div className={drawerContainer}>{mobileRoutes()}</div>
           </Drawer>
 
-          {Logo}
+          {isAdmin ? "ADMIN" : Logo}
         </Toolbar>
-        {isLogin && <ShoppingCart />}
+        <ShoppingCart />
       </>
     );
-  };
-
-  const getDrawerChoices = () => {
-    return isLogin
-      ? headersDataLogin.map(({ label, href }) => {
-          return (
-            <Link
-              {...{
-                component: RouterLink,
-                to: href,
-                color: "inherit",
-                style: { textDecoration: "none" },
-                key: label,
-              }}
-            >
-              <MenuItem>{label}</MenuItem>
-            </Link>
-          );
-        })
-      : headersData.map(({ label, href }) => {
-          return (
-            <Link
-              {...{
-                component: RouterLink,
-                to: href,
-                color: "inherit",
-                style: { textDecoration: "none" },
-                key: label,
-              }}
-            >
-              <MenuItem>{label}</MenuItem>
-            </Link>
-          );
-        });
-  };
-
-  const getMenuButtons = () => {
-    return headersData.map(({ label, href }) => {
-      return (
-        <Button
-          {...{
-            key: label,
-            color: "inherit",
-            to: href,
-            component: RouterLink,
-            className: menuButton,
-          }}
-        >
-          {label}
-        </Button>
-      );
-    });
   };
 
   return (

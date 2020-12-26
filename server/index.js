@@ -3,7 +3,7 @@ dotenv.config({ path: "./.env" });
 const mongoose = require("mongoose");
 const app = require("./app");
 
-console.log(process.env.DATABASE)
+console.log(process.env.DATABASE);
 
 const DB = process.env.DATABASE.replace(
   "<PASSWORD>",
@@ -26,4 +26,3 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`App running on ${port}...`);
 });
- 

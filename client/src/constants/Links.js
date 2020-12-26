@@ -1,7 +1,27 @@
-export const headersData = [
+const logoutUser = () => {
+  localStorage.removeItem("token");
+};
+
+export const adminRoutes = [
+  {
+    label: "Create Product",
+    href: "/create_product",
+  },
+  {
+    label: "Categories",
+    href: "/category",
+  },
+  {
+    label: "Log Out",
+    href: "/",
+    onClick: logoutUser,
+  },
+];
+
+export const unLoggedRoutes = [
   {
     label: "Products",
-    href: "/products",
+    href: "/",
   },
   {
     label: "Login",
@@ -9,10 +29,10 @@ export const headersData = [
   },
 ];
 
-export const headersDataLogin = [
+export const loggedRoutes = [
   {
-    label: "Products",
-    href: "/products",
+    label: "Shop",
+    href: "/",
   },
   {
     label: "My Account",
@@ -20,6 +40,9 @@ export const headersDataLogin = [
   },
   {
     label: "Log Out",
-    href: "/logout",
+    href: "/",
+    onClick: () => {
+      localStorage.removeItem("token");
+    },
   },
 ];

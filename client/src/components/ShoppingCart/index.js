@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { Badge, IconButton, makeStyles } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import { GlobalState } from "../../GlobalState";
 
 export const useStyles = makeStyles(() => ({
   Cart: {
-    "@media (max-width: 900px)": {
-      alignItems: "center",
-      alignSelf: "center",
+    "@media (min-width: 900px)": {
+      marginLeft: "20px",
     },
   },
 }));
@@ -14,13 +15,26 @@ export const useStyles = makeStyles(() => ({
 const { Cart } = useStyles;
 
 export const ShoppingCart = () => {
+  const globalState = useContext(GlobalState);
+  const [isLoggedIn] = globalState.token;
+  const [cart] = globalState.userAPI.cart;
+  const [isAdmin] = globalState.userAPI.isAdmin;
   return (
-    <div className={Cart}>
+    <Link to="/cart">
       <IconButton>
-        <Badge badgeContent={5} color="secondary">
-          <ShoppingCartIcon />
-        </Badge>
+        {!isAdmin ? (
+          <Badge
+            badgeContent={cart.length && isLoggedIn ? cart.length : 0}
+            color="secondary"
+          >
+            <ShoppingCartIcon />
+          </Badge>
+        ) : (
+          <Badge badgeContent={0} color="secondary">
+            <ShoppingCartIcon />
+          </Badge>
+        )}
       </IconButton>
-    </div>
+    </Link>
   );
 };

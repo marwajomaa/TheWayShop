@@ -8,7 +8,6 @@ export const useStyles = makeStyles(() => ({
     backgroundColor: "#fff",
     paddingRight: "79px",
     paddingLeft: "118px",
-    paddingTop: "20px",
     color: "red",
     "@media (max-width: 900px)": {
       padding: 0,
@@ -25,6 +24,7 @@ export const useStyles = makeStyles(() => ({
   toolbar: {
     display: "flex",
     justifyContent: "space-between",
+    alignItems: "center",
     width: "100%",
     color: "red",
   },
