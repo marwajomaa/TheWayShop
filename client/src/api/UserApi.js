@@ -40,8 +40,8 @@ function UserApi() {
 
   const addToCart = async (product) => {
     if (!isLoggedIn) alert("Please login to continue buying");
-
-    const check = cart.every((item) => {
+    let check;
+    check = cart.every((item) => {
       return item._id !== product._id;
     });
 
@@ -60,28 +60,58 @@ function UserApi() {
     }
   };
 
-  const removeProductFromCart = async (product) => {
+  const cartUpdate = async () => {
     try {
-      if (!isLoggedIn) {
-        alert("Please login to continue...");
-        history.push("/login");
-      }
-
-      const removeItem = cart.filter((item) => {
-        return item._id !== product._id;
-      });
-
-      setCart([...removeItem]);
-      const res = await axios.patch(
+      await axios.patch(
         "/api/users/cart",
-        { cart: [...removeItem] },
+        { cart: [...cart] },
         {
           headers: { Authorization: token },
         }
       );
     } catch (err) {
-      console.warn(err.message);
+      console.warn(err.response.data.error);
     }
+  };
+
+  const removeProductFromCart = async (id) => {
+    if (window.confirm("Are you sure you want to remove this product")) {
+      try {
+        if (!isLoggedIn) {
+          alert("Please login to continue...");
+          history.push("/login");
+        }
+
+        cart.forEach((item, index) => {
+          if (item._id === id) {
+            cart.splice(index, 1);
+          }
+        });
+
+        setCart([...cart]);
+        cartUpdate();
+      } catch (err) {
+        console.warn(err.message);
+      }
+    }
+  };
+
+  const incrementQuantity = (id) => {
+    cart.forEach((item) => {
+      if (item._id === id) item.quantity += 1;
+    });
+    setCart([...cart]);
+    cartUpdate();
+  };
+
+  const decrementQuantity = (id) => {
+    cart.forEach((item) => {
+      if (item._id === id) {
+        item.quantity === 1 ? (item.quantity = 1) : (item.quantity -= 1);
+      }
+    });
+    setCart([...cart]);
+    cartUpdate();
   };
 
   return {
@@ -91,6 +121,8 @@ function UserApi() {
     cart: [cart, setCart],
     addToCart,
     removeProductFromCart,
+    incrementQuantity,
+    decrementQuantity,
   };
 }
 

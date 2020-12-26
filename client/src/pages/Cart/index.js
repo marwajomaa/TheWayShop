@@ -64,24 +64,29 @@ const useStyles = makeStyles((theme) => ({
 
 function Cart() {
   const globalState = useContext(GlobalState);
-  const [cart] = globalState.userAPI.cart;
+  const [cart, setCart] = globalState.userAPI.cart;
   const [isAdmin] = globalState.userAPI.isAdmin;
-  const removeProductFromCart = globalState.userAPI.removeProductFromCart;
+  const {
+    removeProductFromCart,
+    incrementQuantity,
+    decrementQuantity,
+  } = globalState.userAPI;
   const [total, setTotal] = useState(0);
   const classes = useStyles();
 
   useEffect(() => {
-    const getTotal = () => {
-      cart.reduce((acc, item) => {
-        const totalPrice = acc + item.price * item.quantity;
+    if (cart) {
+      const getTotal = () => {
+        const totalPrice = cart.reduce((acc, item) => {
+          return acc + item.price * item.quantity;
+        }, 0);
         setTotal(totalPrice);
-        return totalPrice;
-      }, 0);
-    };
-    getTotal();
+      };
+      getTotal();
+    }
   }, [cart]);
 
-  if (cart.length === 0) {
+  if (!cart) {
     return (
       <Typography variant="h3" component="p" style={{ textAlign: "center" }}>
         Cart is empty
@@ -121,7 +126,12 @@ function Cart() {
                   {p.content}
                 </Typography>
                 <Grid item spacing={1} gutterBottom={2}>
-                  <Button text="-" className={classes.button} />
+                  <Button
+                    disabled={p.quantity === 1}
+                    onClick={() => decrementQuantity(p._id)}
+                    text="-"
+                    className={classes.button}
+                  />
                   <Typography
                     variant="h4"
                     component="span"
@@ -129,10 +139,14 @@ function Cart() {
                   >
                     {p.quantity}
                   </Typography>
-                  <Button text="+" className={classes.button} />
+                  <Button
+                    onClick={() => incrementQuantity(p._id)}
+                    text="+"
+                    className={classes.button}
+                  />
                 </Grid>
                 <IconButton
-                  onClick={() => removeProductFromCart(p)}
+                  onClick={() => removeProductFromCart(p._id)}
                   className={classes.deleteIcon}
                 >
                   <HighlightOffIcon />
