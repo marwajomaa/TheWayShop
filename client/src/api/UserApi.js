@@ -114,6 +114,10 @@ function UserApi() {
     cartUpdate();
   };
 
+  const tranSuccess = async (payment) => {
+    console.log(payment, "payment");
+  };
+
   return {
     isLoggedIn: [isLoggedIn, setIsLoggedIn],
     isAdmin: [isAdmin, setIsAdmin],
@@ -123,6 +127,7 @@ function UserApi() {
     removeProductFromCart,
     incrementQuantity,
     decrementQuantity,
+    tranSuccess,
   };
 }
 

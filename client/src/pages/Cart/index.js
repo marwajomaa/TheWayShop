@@ -12,6 +12,7 @@ import { GlobalState } from "../../GlobalState";
 import img from "../../assets/img.jpg";
 import Button from "../../components/Button";
 import Loading from "../../components/Loading";
+import PaypalButton from "./PaypalButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,6 +72,7 @@ function Cart() {
     removeProductFromCart,
     incrementQuantity,
     decrementQuantity,
+    tranSuccess,
   } = globalState.userAPI;
   const [total, setTotal] = useState(0);
   const classes = useStyles();
@@ -162,7 +164,7 @@ function Cart() {
           <Typography variant="h4" component="p">
             Total: ${total}
           </Typography>
-          <Button href="/cart" text="Payment" />
+          <PaypalButton total={total} tranSuccess={tranSuccess} />
         </Grid>
       )}
     </>
