@@ -7,6 +7,7 @@ import EditProduct from "./EditProduct";
 import Login from "./auth/Login";
 import Signup from "./auth/Signup";
 import Cart from "./Cart";
+import OrderHistory from "./OrderHistory";
 import NotFound from "./404Page";
 
 function Pages({ style }) {
@@ -35,6 +36,11 @@ function Pages({ style }) {
           component={isLoggedIn && EditProduct}
         />
         <Route path="/cart" exact component={isLoggedIn ? Cart : Signup} />
+        <Route
+          path="/history"
+          exact
+          component={isLoggedIn ? OrderHistory : Signup}
+        />
         <Route path="*" exact component={NotFound} />
       </Switch>
     </div>

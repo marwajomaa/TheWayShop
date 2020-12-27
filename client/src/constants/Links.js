@@ -12,6 +12,10 @@ export const adminRoutes = [
     href: "/category",
   },
   {
+    label: "History",
+    href: "/history",
+  },
+  {
     label: "Log Out",
     href: "/",
     onClick: logoutUser,
@@ -35,8 +39,8 @@ export const loggedRoutes = [
     href: "/",
   },
   {
-    label: "My Account",
-    href: "/account",
+    label: "History",
+    href: "/history",
   },
   {
     label: "Log Out",
