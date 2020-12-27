@@ -133,7 +133,6 @@ exports.getUser = async (req, res, next) => {
 };
 
 exports.updateCart = async (req, res) => {
-  console.log(req.body.cart, "caaaaaart");
   try {
     const user = await getUserById(req.user.userId);
 

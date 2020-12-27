@@ -115,7 +115,6 @@ function UserApi() {
   };
 
   const tranSuccess = async (payment) => {
-    console.log(payment, "payment");
     const { paymentID, address } = payment;
     await axios.post(
       "/api/payments",
