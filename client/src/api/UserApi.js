@@ -15,11 +15,16 @@ function UserApi() {
   useEffect(() => {
     const getHistory = async () => {
       try {
-        const history = await axios.get("/api/users/history", {
-          headers: { Authorization: token },
-        });
-        console.log(history, "reeeeeeeesponse");
-        setOrderHistory(history.data);
+        if (isAdmin) {
+          await axios.get("/api/payments", {
+            headers: { Authorization: token },
+          });
+        } else {
+          const history = await axios.get("/api/users/history", {
+            headers: { Authorization: token },
+          });
+          setOrderHistory(history.data);
+        }
       } catch (err) {
         console.error(err.message);
       }
