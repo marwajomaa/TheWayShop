@@ -45,7 +45,6 @@ export default function CustomizedTables({
   addressDetails,
   cartRows,
 }) {
-  console.log(cartRows, "rrrrow");
   const classes = useStyles();
   if (!rows) return <Loading />;
 

@@ -43,18 +43,14 @@ function OrderDetails() {
       return item.cart;
     });
 
-    cartRows =
-      cart &&
-      cart.map((item) => {
-        console.log(item, "iteeeeeeeeeeeeeeeeem");
-        return createCartData(
-          item.category,
-          item.quantity,
-          item.price,
-          item.sold
-        );
-      });
-    console.log(cartRows, "------------------------");
+    cartRows = cart.map((item) => {
+      return createCartData(
+        item.category,
+        item.quantity,
+        item.price,
+        item.sold
+      );
+    });
   }
   const paymentTable = ["Name", "Country Code", "Postal Code", "Email"];
   const cartTable = ["Products", "Quantity", "Price", "Sold"];
@@ -63,7 +59,7 @@ function OrderDetails() {
   return (
     <>
       <Table HeadData={paymentTable} rows={rows} addressDetails />
-      <Table HeadData={cartTable} cartRows={cartRows} cartDetails />
+      {/* <Table HeadData={cartTable} cartRows={cartRows} cartDetails /> */}
     </>
   );
 }
