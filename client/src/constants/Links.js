@@ -9,7 +9,7 @@ export const adminRoutes = [
   },
   {
     label: "Categories",
-    href: "/category",
+    href: "/categories",
   },
   {
     label: "History",

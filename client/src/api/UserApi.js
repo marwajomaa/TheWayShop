@@ -53,7 +53,7 @@ function UserApi() {
             if (res.data.role === 1) setIsAdmin(true);
           }
         } catch (err) {
-          console.error(err.response.data.error);
+          console.error(err.message);
         }
       };
       getUser();

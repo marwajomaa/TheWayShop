@@ -44,11 +44,7 @@ function Pages({ style }) {
           exact
           component={isLoggedIn ? OrderHistory : Signup}
         />
-        <Route
-          path="/Categories"
-          exact
-          component={isAdmin ? Categories : NotFound}
-        />
+        <Route path="/categories" exact component={Categories} />
         <Route
           path="/history/:id"
           exact

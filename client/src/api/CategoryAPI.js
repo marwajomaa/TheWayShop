@@ -7,10 +7,11 @@ function CategoryAPI(token) {
   useEffect(() => {
     const getCategories = async () => {
       const res = await axios.get("/api/categories");
-      setCategories(res.data);
+      setCategories(res.data.categories);
     };
     getCategories();
   }, []);
+
   return {
     categories: [categories, setCategories],
   };
