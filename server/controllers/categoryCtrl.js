@@ -45,7 +45,7 @@ exports.updateCategory = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { name } = req.body;
-    console.log(id, name, "yyyyyyyyyyay");
+
     const category = await Category.findByIdAndUpdate({ _id: id }, { name });
 
     if (!category) return next(new httpError("This category not exists", 400));

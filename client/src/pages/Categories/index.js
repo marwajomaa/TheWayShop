@@ -59,7 +59,6 @@ function Categories() {
   };
 
   const createCategory = async (name, onEdit) => {
-    console.log(onEdit, "ooooooooonEdit");
     try {
       if (onEdit) {
         const res = await axios.patch(
@@ -84,6 +83,16 @@ function Categories() {
       setOnEdit(false);
     } catch (err) {
       console.error(err.response.data.msg);
+    }
+  };
+
+  const deleteCategory = async (id) => {
+    try {
+      const res = await axios.delete(`/api/categories/category/${id}`);
+      alert(res.data.msg);
+      setCallback(!callback);
+    } catch (err) {
+      alert(err.response.data.msg);
     }
   };
 
@@ -137,6 +146,7 @@ function Categories() {
                   type="outlined"
                   color="secondary"
                   style={{ alignSelf: "center", width: "100%" }}
+                  onClick={() => deleteCategory(_id)}
                 />
               </ButtonGroup>
             </Grid>
