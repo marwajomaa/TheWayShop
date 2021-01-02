@@ -41,14 +41,17 @@ function Categories() {
   const state = useContext(GlobalState);
   const { values, handleInputChange } = useForm(initialValues, false);
   const [categories] = state.categoryAPI.categories;
-  const createCategory = state.categoryAPI;
+  const { createCategory } = state.categoryAPI;
   const [category, setCategory] = useState("");
   const classes = useStyles();
   console.log(typeof categories, "----------------");
 
   return (
     <Paper elevation={0}>
-      <form onSubmit={createCategory} className={classes.container}>
+      <form
+        onSubmit={() => createCategory(values.category)}
+        className={classes.container}
+      >
         <Grid container xs={12} direction="column" spacing={2}>
           <Grid item xs={12}>
             <Input
