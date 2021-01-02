@@ -97,7 +97,7 @@ exports.loginUser = async (req, res, next) => {
     return next(new httpError("Could not login, please try again", 500));
   }
 
-  res.cookie("token", token, { maxAge: 1000000, httpOnly: true });
+  res.cookie("token", token, { maxAge: 2592000, httpOnly: true });
   req.user = existingUser;
 
   res.status(200).json({
