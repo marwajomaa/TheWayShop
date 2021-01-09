@@ -17,6 +17,16 @@ function ProductsAPI() {
     // history.push("/");
   };
 
+  const createProduct = async (product) => {
+    try {
+      const res = await axios.post("/api/products", product);
+      alert(res.data.msg);
+      history.push("/");
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   useEffect(() => {
     getProducts();
   }, []);
@@ -24,6 +34,7 @@ function ProductsAPI() {
   return {
     products: [products, setProducts],
     deleteProduct,
+    createProduct,
   };
 }
 

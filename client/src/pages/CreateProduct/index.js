@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Paper, Grid, Typography, makeStyles } from "@material-ui/core";
+import { GlobalState } from "../../GlobalState";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { useForm } from "../../hooks/useForm";
@@ -25,15 +26,28 @@ const initialValues = {
 };
 
 function CreateProduct() {
+  const state = useContext(GlobalState);
+  const { createProduct } = state.productsAPI;
   const { values, handleInputChange, clearInputs } = useForm(
     initialValues,
     false
   );
-  const classes = useStyles();
+  const classes = useStyles({});
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const product = {
+      product_id: Math.random(),
+      title: values.title,
+      description: values.description,
+      content: values.content,
+      category: values.category,
+      price: values.price,
+    };
+
+    await createProduct(product);
   };
+
   return (
     <Paper elevation={0}>
       <form className={classes.container} onSubmit={handleSubmit}>
@@ -79,6 +93,7 @@ function CreateProduct() {
           variant="contained"
           color="primary"
           text="Submit"
+          type="submit"
           style={{ width: "100%" }}
         />
       </form>
