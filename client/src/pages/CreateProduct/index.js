@@ -3,6 +3,7 @@ import { Paper, Grid, Typography, makeStyles } from "@material-ui/core";
 import { GlobalState } from "../../GlobalState";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import Select from "../../components/Select";
 import { useForm } from "../../hooks/useForm";
 
 const useStyles = makeStyles(() => ({
@@ -25,8 +26,15 @@ const initialValues = {
   category: "",
 };
 
+const genderItems = [
+  { id: "male", title: "Male" },
+  { id: "female", title: "Female" },
+  { id: "other", title: "Other" },
+];
+
 function CreateProduct() {
   const state = useContext(GlobalState);
+  const [categories] = state.categoryAPI.categories;
   const { createProduct } = state.productsAPI;
   const { values, handleInputChange, clearInputs } = useForm(
     initialValues,
@@ -82,12 +90,12 @@ function CreateProduct() {
           value={values.content}
           onChange={handleInputChange}
         />
-        <Input
-          label="Category"
-          type="text"
+        <Select
           name="category"
+          label="Category"
           value={values.category}
           onChange={handleInputChange}
+          options={categories && categories}
         />
         <Button
           variant="contained"
