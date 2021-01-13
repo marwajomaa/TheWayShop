@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import { GlobalState } from "../../GlobalState";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import Loading from "../../components/Loading";
 import Select from "../../components/Select";
+import { useForm } from "../../hooks/useForm";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -31,97 +31,72 @@ const initialValues = {
   category: "",
 };
 
-function EditProduct() {
+function CreateProduct() {
   const classes = useStyles({});
-  const params = useParams();
   const state = useContext(GlobalState);
   const [categories] = state.categoryAPI.categories;
-  const [products] = state.productsAPI.products;
-  const [isAdmin] = state.userAPI.isAdmin;
-  const { editProduct } = state.productsAPI;
-  const [product, setProduct] = useState(initialValues);
-
-  useEffect(() => {
-    if (params.id) {
-      if (!isAdmin) alert("You are not an admin");
-
-      products.forEach((product) => {
-        if (product._id === params.id) {
-          setProduct(product);
-        }
-      });
-    }
-  }, [params.id, products]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
-  };
+  const { createProduct } = state.productsAPI;
+  const { values, handleInputChange, clearInputs, setData } = useForm(
+    initialValues,
+    false
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (product) {
-      const newProduct = {
-        product_id: product._id,
-        title: product.title,
-        description: product.description,
-        content: product.content,
-        category: product.category,
-        price: product.price,
-      };
+    const product = {
+      product_id: Math.random(),
+      title: values.title,
+      description: values.description,
+      content: values.content,
+      category: values.category,
+      price: values.price,
+    };
 
-      await editProduct(product._id, newProduct);
-    }
+    await createProduct(product);
   };
 
-  if (!product) {
-    return <Loading />;
-  }
+  setTimeout(() => console.log(values, "pppppppppproduct"), 3000);
+
   return (
     <Paper elevation={0}>
       <form className={classes.container} onSubmit={handleSubmit}>
         <Typography variant="h6" component="p" className={classes.paragraph}>
-          Edit Product
+          Create New Product
         </Typography>
         <Grid container direction="column" spacing={2}>
           <Grid item xs={12}>
             <Input
-              id="Title"
               label="Title"
-              initialValue={product.title}
               type="text"
               name="title"
-              value={product.title}
+              value={values.title || ""}
               onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>
             <Input
-              id="Price"
               label="Price"
               type="number"
               name="price"
-              value={product.price}
+              value={values.price || ""}
               onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>
             <Input
-              id="Description"
               label="Description"
               type="text"
               name="description"
-              value={product.description}
+              value={values.description || ""}
               onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>
             <Input
-              id="Content"
               label="Content"
               type="text"
               name="content"
-              value={product.content}
+              value={values.content || ""}
               onChange={handleInputChange}
             />
           </Grid>
@@ -129,7 +104,7 @@ function EditProduct() {
             <Select
               name="category"
               label="Category"
-              value={product.category}
+              value={values.category || ""}
               onChange={handleInputChange}
               options={categories && categories}
             />
@@ -149,4 +124,4 @@ function EditProduct() {
   );
 }
 
-export default EditProduct;
+export default CreateProduct;

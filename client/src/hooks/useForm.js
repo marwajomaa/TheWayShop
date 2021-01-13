@@ -8,10 +8,14 @@ export function useForm(initialValues, validateOnChange, validate) {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
-
+    setTimeout(() => console.log(values), 3000);
     if (validateOnChange) {
       validate({ [name]: value });
     }
+  };
+
+  const setData = (data) => {
+    setValues(data);
   };
 
   const clearInputs = () => {
@@ -27,5 +31,6 @@ export function useForm(initialValues, validateOnChange, validate) {
     setErrors,
     submitError,
     setSubmitError,
+    setData,
   };
 }
