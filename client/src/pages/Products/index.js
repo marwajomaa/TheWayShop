@@ -11,6 +11,7 @@ function Products() {
   const state = useContext(GlobalState);
   const [products, setProducts] = state.productsAPI.products;
   const [callback, setCallback] = state.productsAPI.callback;
+  const [isAdmin] = state.userAPI.isAdmin;
   const { deleteProduct } = state.productsAPI;
   const [isCheck, setIsCheck] = useState(false);
 
@@ -45,19 +46,21 @@ function Products() {
 
   return (
     <Grid container spacing={5}>
-      <Grid item xs={12}>
-        <Typography variant="p" component="span">
-          Check All
-        </Typography>
-        <Checkbox checked={isCheck} onChange={checkAll} />
-        <Button
-          text="Delete All"
-          variant="outlined"
-          color="secondary"
-          onClick={DeleteAll}
-        />
-      </Grid>
-      <Grid container xs={12}>
+      {isAdmin && (
+        <Grid item xs={12}>
+          <Typography variant="p" component="span">
+            Check All
+          </Typography>
+          <Checkbox checked={isCheck} onChange={checkAll} />
+          <Button
+            text="Delete All"
+            variant="outlined"
+            color="secondary"
+            onClick={DeleteAll}
+          />
+        </Grid>
+      )}
+      <Grid container spacing={3} xs={12}>
         {products &&
           products.map((product) => {
             return (

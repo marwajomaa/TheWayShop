@@ -4,6 +4,10 @@ const logoutUser = () => {
 
 export const adminRoutes = [
   {
+    label: "Products",
+    href: "/",
+  },
+  {
     label: "Create Product",
     href: "/create_product",
   },

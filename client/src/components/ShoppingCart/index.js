@@ -22,15 +22,11 @@ export const ShoppingCart = () => {
   return (
     <Link to="/cart">
       <IconButton>
-        {!isAdmin ? (
+        {!isAdmin && (
           <Badge
             badgeContent={cart.length && isLoggedIn ? cart.length : 0}
             color="secondary"
           >
-            <ShoppingCartIcon />
-          </Badge>
-        ) : (
-          <Badge badgeContent={0} color="secondary">
             <ShoppingCartIcon />
           </Badge>
         )}
