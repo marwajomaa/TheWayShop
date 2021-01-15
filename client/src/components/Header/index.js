@@ -222,14 +222,25 @@ export default function Header() {
     <header>
       <AppBar className={header}>
         {mobileView ? displayMobile() : displayDesktop()}
-        <CommonBtn
-          onClick={handleLogout}
-          color="secondary"
-          variant="outlined"
-          text="Logout"
-          size="medium"
-          style={{ height: "50px", alignSelf: "center" }}
-        />
+        {isLoggedIn ? (
+          <CommonBtn
+            onClick={handleLogout}
+            color="secondary"
+            variant="outlined"
+            text="Logout"
+            size="medium"
+            style={{ height: "50px", alignSelf: "center" }}
+          />
+        ) : (
+          <CommonBtn
+            color="primary"
+            variant="outlined"
+            text="Login"
+            size="medium"
+            href="/login"
+            style={{ height: "50px", alignSelf: "center" }}
+          />
+        )}
       </AppBar>
     </header>
   );

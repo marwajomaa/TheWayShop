@@ -26,10 +26,6 @@ export const unLoggedRoutes = [
     label: "Products",
     href: "/",
   },
-  {
-    label: "Login",
-    href: "/login",
-  },
 ];
 
 export const loggedRoutes = [
