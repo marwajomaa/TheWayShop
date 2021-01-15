@@ -19,17 +19,18 @@ export const ShoppingCart = () => {
   const [isLoggedIn] = globalState.token;
   const [cart] = globalState.userAPI.cart;
   const [isAdmin] = globalState.userAPI.isAdmin;
+
+  if (isAdmin) return null;
+
   return (
     <Link to="/cart">
       <IconButton>
-        {!isAdmin && (
-          <Badge
-            badgeContent={cart.length && isLoggedIn ? cart.length : 0}
-            color="secondary"
-          >
-            <ShoppingCartIcon />
-          </Badge>
-        )}
+        <Badge
+          badgeContent={cart.length && isLoggedIn ? cart.length : 0}
+          color="secondary"
+        >
+          <ShoppingCartIcon />
+        </Badge>
       </IconButton>
     </Link>
   );

@@ -226,7 +226,7 @@ export default function Header() {
           <CommonBtn
             onClick={handleLogout}
             color="secondary"
-            variant="outlined"
+            variant="contained"
             text="Logout"
             size="medium"
             style={{ height: "50px", alignSelf: "center" }}
