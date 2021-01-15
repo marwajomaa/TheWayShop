@@ -15,7 +15,15 @@ const useStyles = makeStyles({
 });
 export default function Select(props) {
   const classes = useStyles();
-  const { name, label, value, error = null, onChange, options } = props;
+  const {
+    name,
+    label,
+    value,
+    error = null,
+    onChange,
+    options,
+    allProducts,
+  } = props;
 
   return (
     <FormControl
@@ -25,8 +33,9 @@ export default function Select(props) {
     >
       <InputLabel>{label}</InputLabel>
       <MuiSelect label={label} name={name} value={value} onChange={onChange}>
+        {allProducts && <MenuItem value="">All Products</MenuItem>}
         {options.map((item) => (
-          <MenuItem key={item._id} value={item.name}>
+          <MenuItem key={item._id} value={item.value || item.name}>
             {item.name}
           </MenuItem>
         ))}

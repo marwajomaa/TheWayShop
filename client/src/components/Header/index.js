@@ -37,6 +37,11 @@ export default function Header() {
   const { mobileView, drawerOpen } = state;
 
   useEffect(() => {
+    mobileRoutes();
+    desktopRoutes();
+  }, [isLoggedIn, token, isAdmin]);
+
+  useEffect(() => {
     const setResponsiveness = () => {
       return window.innerWidth < 900
         ? setState((prevState) => ({ ...prevState, mobileView: true }))
@@ -47,11 +52,6 @@ export default function Header() {
 
     window.addEventListener("resize", () => setResponsiveness());
   }, []);
-
-  useEffect(() => {
-    mobileRoutes();
-    desktopRoutes();
-  }, [isLoggedIn, token]);
 
   const displayDesktop = () => {
     return (

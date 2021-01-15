@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Paper, Grid, Typography, makeStyles } from "@material-ui/core";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { GlobalState } from "../../GlobalState";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
@@ -34,6 +34,7 @@ const initialValues = {
 function EditProduct() {
   const classes = useStyles({});
   const params = useParams();
+  const history = useHistory();
   const state = useContext(GlobalState);
   const [categories] = state.categoryAPI.categories;
   const [products] = state.productsAPI.products;
@@ -71,6 +72,7 @@ function EditProduct() {
       };
 
       await editProduct(product._id, newProduct);
+      history.push("/");
     }
   };
 

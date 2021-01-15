@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Typography, Grid, Checkbox } from "@material-ui/core";
 import { GlobalState } from "../../GlobalState";
+import Filters from "../../components/Filters";
 import ProductItem from "./ProductItem";
 import Button from "../../components/Button";
 import Loading from "../../components/Loading";
@@ -16,18 +17,19 @@ function Products() {
   const [isCheck, setIsCheck] = useState(false);
 
   if (!products) return <Loading />;
-  if (products.length === 0)
-    return (
-      <Typography variant="h4" component="h4" style={{ textAlign: "center" }}>
-        No Products
-      </Typography>
-    );
+  // if (products.length === 0)
+  //   return (
+  //     <Typography variant="h4" component="h4" style={{ textAlign: "center" }}>
+  //       No Products
+  //     </Typography>
+  //   );
 
   const handleCheck = (id) => {
     products.forEach((product) => {
-      if (product._id === id) product.checked = !product.checked;
+      if (product._id === id) product.checked = !isCheck;
     });
     setProducts([...products]);
+    setIsCheck(!isCheck);
   };
 
   const checkAll = () => {
@@ -40,12 +42,14 @@ function Products() {
     products.forEach((product) => {
       if (product.checked) deleteProduct(product._id);
     });
-    setCallback(true);
+    history.push("/");
+    setCallback(!callback);
     setIsCheck(false);
   };
 
   return (
     <Grid container spacing={5}>
+      <Filters />
       {isAdmin && (
         <Grid item xs={12}>
           <Typography variant="p" component="span">

@@ -8,7 +8,7 @@ export const useStyles = makeStyles(() => ({
     backgroundColor: "#fff",
     paddingRight: "79px",
     paddingLeft: "118px",
-    color: "red",
+    color: "black",
     "@media (max-width: 900px)": {
       padding: 0,
       paddingRight: "10px",
@@ -26,10 +26,8 @@ export const useStyles = makeStyles(() => ({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    color: "red",
   },
   drawerContainer: {
     padding: "20px 30px",
-    color: "red",
   },
 }));
