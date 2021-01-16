@@ -8,6 +8,7 @@ import img from "../../assets/img.jpg";
 import Button from "../../components/Button";
 import ProductItem from "../Products/ProductItem";
 import Loading from "../../components/Loading";
+import Alert from "../../components/Alert.js";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -53,6 +54,10 @@ function ProductDetails() {
   const [isLoggedIn] = state.token;
   const [isAdmin] = state.userAPI.isAdmin;
   const { addToCart } = state.userAPI;
+  const [alert] = state.userAPI.alert;
+  const [loading] = state.userAPI.loading;
+  const [success] = state.userAPI.success;
+  const [error] = state.userAPI.error;
 
   useEffect(() => {
     if (params.id) {
@@ -69,6 +74,15 @@ function ProductDetails() {
   return (
     <>
       <BackLink />
+      {loading && <Loading />}
+      {alert && isLoggedIn && (
+        <Alert text={alert} type={success ? "success" : "error"} />
+      )}
+      {alert && !isLoggedIn && (
+        <Alert text="Please login to continue buying" type="error" />
+      )}
+
+      {error && <Alert text={error} type="error" title="Error" />}
       <Grid container xs={12} className={classes.root}>
         <img src={img} alt={title} className={classes.image} />
         <Box item className={classes.boxDetails}>

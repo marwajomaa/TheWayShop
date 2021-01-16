@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Alert } from "@material-ui/core";
 import axios from "axios";
 
 function ProductsAPI() {
@@ -10,33 +9,60 @@ function ProductsAPI() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [result, setResult] = useState(0);
+  const [alert, setAlert] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getProducts = async () => {
-      const res = await axios.get(
-        `/api/products?limit=${
-          page * 9
-        }&${category}&${sort}&title[regex]=${search}`
-      );
-      setProducts(res.data.products);
-      setResult(res.data.result);
+      setLoading(true);
+      try {
+        const res = await axios.get(
+          `/api/products?limit=${
+            page * 9
+          }&${category}&${sort}&title[regex]=${search}`
+        );
+        setProducts(res.data.products);
+        setResult(res.data.result);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+      }
     };
     getProducts();
   }, [callback, category, sort, search, page]);
 
   const getProducts = async () => {
-    const res = await axios.get("/api/products");
-    setProducts(res.data.products);
+    try {
+      setLoading(true);
+      const res = await axios.get("/api/products");
+      setProducts(res.data.products);
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   const deleteProduct = async (id) => {
-    await axios.delete(`/api/products/product/${id}`);
+    setAlert("Are you sure you want to delete this product");
+    try {
+      setLoading(true);
+      await axios.delete(`/api/products/product/${id}`);
+      window.location.href = "/";
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   const createProduct = async (product) => {
     try {
+      setLoading(true);
       const res = await axios.post("/api/products", product);
-      alert(res.data.msg);
+      setAlert(res.data.msg);
+      setLoading(false);
+      setSuccess(true);
     } catch (err) {
       console.log(err.message);
     }
@@ -44,10 +70,12 @@ function ProductsAPI() {
 
   const editProduct = async (id, product) => {
     try {
+      setLoading(true);
       const res = await axios.patch(`/api/products/product/${id}`, product);
-      alert(res.data.msg);
+      setLoading(false);
+      setAlert(res.data.msg);
     } catch (err) {
-      console.log(err.message);
+      setError(err.message);
     }
   };
 
@@ -66,6 +94,10 @@ function ProductsAPI() {
     search: [search, setSearch],
     page: [page, setPage],
     result: [result, setResult],
+    alert: [alert, setAlert],
+    loading: [loading, setLoading],
+    success: [success, setSuccess],
+    error: [error, setError],
   };
 }
 

@@ -25,12 +25,12 @@ function Products() {
   const [isCheck, setIsCheck] = useState(false);
 
   if (!products) return <Loading />;
-  // if (products.length === 0)
-  //   return (
-  //     <Typography variant="h4" component="h4" style={{ textAlign: "center" }}>
-  //       No Products
-  //     </Typography>
-  //   );
+  if (products.length === 0)
+    return (
+      <Typography variant="h4" component="h4" style={{ textAlign: "center" }}>
+        No Products
+      </Typography>
+    );
 
   const handleCheck = (id) => {
     products.forEach((product) => {
@@ -64,11 +64,8 @@ function Products() {
       {alert && !isLoggedIn && (
         <Alert text="Please login to continue buying" type="error" />
       )}
-
       {error && <Alert text={error} type="error" title="Error" />}
-
-      <Filters />
-      {isAdmin && (
+      {products.length !== 0 && isAdmin && (
         <Grid item xs={12}>
           <Typography variant="p" component="span">
             Check All

@@ -39,7 +39,7 @@ function UserApi() {
             if (res.data.role === 1) setIsAdmin(true);
           }
         } catch (err) {
-          setError(err.response.data.message);
+          setError(err.message);
         }
       };
       getUser();
@@ -98,13 +98,12 @@ function UserApi() {
         setAlert("This product already in the cart");
       }
     } catch (err) {
-      setError(err.response.data.message);
+      setError(err.message);
     }
   };
 
   const cartUpdate = async (cart) => {
     try {
-      setLoading(true);
       await axios.patch(
         "/api/users/cart",
         { cart: [...cart] },
@@ -112,9 +111,8 @@ function UserApi() {
           headers: { Authorization: token },
         }
       );
-      setLoading(false);
     } catch (err) {
-      setError(err.response.data.message);
+      setError(err.message);
     }
   };
 
@@ -134,8 +132,8 @@ function UserApi() {
 
         setCart([...cart]);
         cartUpdate();
-      } catch (err) {
-        setError(err.response.data.message);
+      } catch (error) {
+        setError(error.message);
       }
     }
   };
@@ -180,7 +178,7 @@ function UserApi() {
       await axios.get("/api/users/logout");
       setLoading(false);
     } catch (err) {
-      setError(err.response.data.message);
+      setError(err.message);
     }
   };
 
