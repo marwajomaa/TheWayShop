@@ -2,8 +2,8 @@ const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const fileUpload = require('express-fileupload');
-const cors = require('cors');
+const fileUpload = require("express-fileupload");
+const cors = require("cors");
 const router = require("./routes");
 const HttpError = require("./middlewares/http-error");
 
@@ -18,9 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(cors())
-app.use(fileUpload({ useTemplate: true}))
-
+app.use(cors());
+app.use(fileUpload({ useTemplate: true }));
 
 app.use(express.static(`${__dirname}/public`));
 
@@ -42,7 +41,7 @@ app.use((err, req, res, next) => {
     res.status(err.code || 500);
     console.log(err.code, "............");
   }
-  console.log(err.message, 'error');
+  console.log(err.message, "error");
   res.json({ error: err.message || "AnUnKnown error has occurred" });
 });
 

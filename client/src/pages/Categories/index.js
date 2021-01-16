@@ -65,7 +65,6 @@ function Categories() {
     setCategory(name);
     setID(_id);
     setOnEdit(true);
-    setTimeout(() => console.log(onEdit), 4000);
   };
 
   const createCategory = async () => {

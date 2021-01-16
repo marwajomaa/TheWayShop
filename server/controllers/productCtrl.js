@@ -67,7 +67,6 @@ exports.getProducts = async (req, res, next) => {
 };
 
 exports.createProduct = async (req, res, next) => {
-  console.log(req.body);
   try {
     const {
       product_id,

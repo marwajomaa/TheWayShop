@@ -65,7 +65,6 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(values);
     if (!validate()) {
       window.alert("form is not valid");
     }

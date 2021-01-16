@@ -64,7 +64,7 @@ function ProductsAPI() {
       setLoading(false);
       setSuccess(true);
     } catch (err) {
-      console.log(err.message);
+      setError(err.message);
     }
   };
 

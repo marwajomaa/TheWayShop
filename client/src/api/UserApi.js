@@ -49,7 +49,6 @@ function UserApi() {
   useEffect(() => {
     const getHistory = async () => {
       try {
-        console.log(user.role, "ppppppppppp");
         let history;
 
         if (user.role === 1) {

@@ -31,7 +31,6 @@ exports.userRegister = async (req, res, next) => {
 
     //create token
     const token = createAccessToken({ id: newUser._id, email: newUser.email });
-    console.log(token, "tttttttttt");
     const refreshToken = createRefreshToken({
       id: newUser._id,
       email: newUser.email,
@@ -50,7 +49,6 @@ exports.userRegister = async (req, res, next) => {
       token,
     });
   } catch (err) {
-    console.log(err);
     return next(new httpError("Something went wrong, please try again"), 500);
   }
 };

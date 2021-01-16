@@ -43,7 +43,6 @@ function OrderHistory() {
   const state = useContext(GlobalState);
   const [orderHistory] = state.userAPI.orderHistory;
   const [isAdmin, setIsAdmin] = state.userAPI.isAdmin;
-  console.log(orderHistory, "history");
 
   function createData(PaymentID, PurchasedAt, View) {
     return { PaymentID, PurchasedAt, View };

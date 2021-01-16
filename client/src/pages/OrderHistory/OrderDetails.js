@@ -14,7 +14,6 @@ function OrderDetails() {
 
   useEffect(() => {
     if (params.id) {
-      console.log(params.id, "params");
       orderHistory.forEach((item) => {
         if (item._id === params.id) setOrderDetails([item]);
       });

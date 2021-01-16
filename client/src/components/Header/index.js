@@ -109,7 +109,6 @@ export default function Header() {
         );
       });
     }
-    console.log("unLoggedRoutes");
     return unLoggedRoutes.map(({ label, href }) => {
       return (
         <Link
@@ -162,7 +161,6 @@ export default function Header() {
         );
       });
     }
-    console.log("unLoggedRoutes");
     return unLoggedRoutes.map(({ label, href }) => {
       return (
         <Button
