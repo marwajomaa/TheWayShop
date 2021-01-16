@@ -13,6 +13,7 @@ import img from "../../assets/img.jpg";
 import Button from "../../components/Button";
 import Loading from "../../components/Loading";
 import PaypalButton from "./PaypalButton";
+import BackLink from "../../components/BackLink";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,6 +101,7 @@ function Cart() {
   return (
     <>
       <Paper elevation={0}>
+        <BackLink />
         {cart.map((p) => {
           return (
             <Grid container xs={12} spacing={3} className={classes.root}>

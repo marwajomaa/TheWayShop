@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { Paper, Grid, Typography, makeStyles } from "@material-ui/core";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 import { GlobalState } from "../../GlobalState";
 import Input from "../../components/Input";
+import BackLink from "../../components/BackLink";
 import Button from "../../components/Button";
 import Select from "../../components/Select";
 import { useForm } from "../../hooks/useForm";
@@ -61,6 +63,7 @@ function CreateProduct() {
 
   return (
     <Paper elevation={0}>
+      <BackLink />
       <form className={classes.container} onSubmit={handleSubmit}>
         <Typography variant="h6" component="p" className={classes.paragraph}>
           Create New Product

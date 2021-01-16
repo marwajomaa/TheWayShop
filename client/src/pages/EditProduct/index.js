@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Paper, Grid, Typography, makeStyles } from "@material-ui/core";
 import { useParams, useHistory } from "react-router-dom";
+
 import { GlobalState } from "../../GlobalState";
+import BackLink from "../../components/BackLink";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Loading from "../../components/Loading";
@@ -81,6 +83,7 @@ function EditProduct() {
   }
   return (
     <Paper elevation={0}>
+      <BackLink />
       <form className={classes.container} onSubmit={handleSubmit}>
         <Typography variant="h6" component="p" className={classes.paragraph}>
           Edit Product

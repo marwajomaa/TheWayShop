@@ -12,6 +12,7 @@ import { GlobalState } from "../../GlobalState";
 import { useForm } from "../../hooks/useForm";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import BackLink from "../../components/BackLink";
 
 const initialValues = {
   category: "",
@@ -103,6 +104,7 @@ function Categories() {
 
   return (
     <Paper elevation={0}>
+      <BackLink />
       <form onSubmit={createCategory} className={classes.container}>
         <Grid container xs={12} direction="column" spacing={2}>
           <Grid item xs={12}>

@@ -12,9 +12,9 @@ import {
   TableRow,
   Paper,
   Typography,
-  Grid,
 } from "@material-ui/core";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import BackLink from "../../components/BackLink";
 import { GlobalState } from "../../GlobalState";
 
 const StyledTableCell = withStyles((theme) => ({
@@ -64,6 +64,7 @@ function OrderHistory() {
 
   return (
     <Paper elevation={0}>
+      <BackLink />
       <Typography
         variant="h6"
         component="h6"

@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { Grid, Box, makeStyles, Typography } from "@material-ui/core";
 
 import { GlobalState } from "../../GlobalState";
+import BackLink from "../../components/BackLink";
 import img from "../../assets/img.jpg";
 import Button from "../../components/Button";
 import ProductItem from "../Products/ProductItem";
@@ -67,6 +68,7 @@ function ProductDetails() {
 
   return (
     <>
+      <BackLink />
       <Grid container xs={12} className={classes.root}>
         <img src={img} alt={title} className={classes.image} />
         <Box item className={classes.boxDetails}>
