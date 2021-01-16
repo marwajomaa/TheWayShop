@@ -16,7 +16,6 @@ export const DataProvider = ({ children }) => {
       const token = localStorage.getItem("token");
       // const token = await axios.get("/api/refresh_token")
       setToken(token);
-      setTimeout(() => console.log(token), 3000);
     }
   }, [token]);
 

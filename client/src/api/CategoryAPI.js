@@ -8,9 +8,7 @@ function CategoryAPI(token) {
   useEffect(() => {
     const getCategories = async () => {
       const res = await axios.get("/api/categories");
-      console.log(res.data.categories);
       setCategories(res.data.categories);
-      setTimeout(() => console.log(categories), 3000);
     };
     getCategories();
   }, [callback]);
