@@ -29,6 +29,7 @@ export default function MediaCard({ product, handleCheck }) {
   const [isLoggedIn] = globalState.token;
   const addToCart = globalState.userAPI.addToCart;
   const [isAdmin] = globalState.userAPI.isAdmin;
+  const [alert] = globalState.userAPI.alert;
   const { deleteProduct } = globalState.productsAPI;
   const { category, content, price, _id, checked } = product;
   const classes = useStyles();

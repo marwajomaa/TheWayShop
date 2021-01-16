@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Alert } from "@material-ui/core";
 import axios from "axios";
 
 function ProductsAPI() {
@@ -30,7 +31,6 @@ function ProductsAPI() {
 
   const deleteProduct = async (id) => {
     await axios.delete(`/api/products/product/${id}`);
-    alert("product deleted successfully");
   };
 
   const createProduct = async (product) => {

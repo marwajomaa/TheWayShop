@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Typography, Grid, Checkbox } from "@material-ui/core";
+
 import { GlobalState } from "../../GlobalState";
 import Filters from "../../components/Filters";
 import ProductItem from "./ProductItem";
 import Button from "../../components/Button";
 import Loading from "../../components/Loading";
+import Alert from "../../components/Alert.js";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 function Products() {
   const history = useHistory();
@@ -13,6 +16,11 @@ function Products() {
   const [products, setProducts] = state.productsAPI.products;
   const [callback, setCallback] = state.productsAPI.callback;
   const [isAdmin] = state.userAPI.isAdmin;
+  const [isLoggedIn] = state.userAPI.isLoggedIn;
+  const [alert] = state.userAPI.alert;
+  const [loading] = state.userAPI.loading;
+  const [success] = state.userAPI.success;
+  const [error] = state.userAPI.error;
   const { deleteProduct } = state.productsAPI;
   const [isCheck, setIsCheck] = useState(false);
 
@@ -49,6 +57,16 @@ function Products() {
 
   return (
     <Grid container spacing={5}>
+      {loading && <Loading />}
+      {alert && isLoggedIn && (
+        <Alert text={alert} type={success ? "success" : "error"} />
+      )}
+      {alert && !isLoggedIn && (
+        <Alert text="Please login to continue buying" type="error" />
+      )}
+
+      {error && <Alert text={error} type="error" title="Error" />}
+
       <Filters />
       {isAdmin && (
         <Grid item xs={12}>
