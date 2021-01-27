@@ -66,10 +66,7 @@ export default function Header() {
         ) : (
           Logo
         )}
-        <div>
-          {desktopRoutes()}
-          <ShoppingCart />
-        </div>
+        <div>{desktopRoutes()}</div>
       </Toolbar>
     );
   };
@@ -211,7 +208,6 @@ export default function Header() {
 
           {isAdmin ? "ADMIN" : Logo}
         </Toolbar>
-        <ShoppingCart />
       </>
     );
   };
@@ -230,7 +226,7 @@ export default function Header() {
           <CommonBtn
             onClick={handleLogout}
             color="secondary"
-            variant="contained"
+            variant="outlined"
             text="Logout"
             size="medium"
             style={{ height: "50px", alignSelf: "center" }}
@@ -245,6 +241,7 @@ export default function Header() {
             style={{ height: "50px", alignSelf: "center" }}
           />
         )}
+        <ShoppingCart />
       </AppBar>
     </header>
   );

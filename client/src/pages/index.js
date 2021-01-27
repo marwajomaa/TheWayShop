@@ -11,6 +11,7 @@ import OrderHistory from "./OrderHistory";
 import OrderDetails from "./OrderHistory/OrderDetails";
 import Categories from "./Categories";
 import CreateProduct from "./CreateProduct";
+import HomePage from "./HomePage";
 import NotFound from "./404Page";
 
 function Pages({ style }) {
@@ -21,7 +22,8 @@ function Pages({ style }) {
   return (
     <div className={style}>
       <Switch>
-        <Route path="/" exact path="/" component={Products} />
+        <Route path="/" exact path="/" component={HomePage} />
+        <Route path="/" exact path="/products" component={Products} />
         <Route
           path="/"
           exact

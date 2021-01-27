@@ -6,7 +6,7 @@ function Button({ variant, size, color, text, ...props }) {
     <MuiButton
       variant={variant || "contained"}
       size={size || "large"}
-      color={color || "default"}
+      color={color}
       {...props}
     >
       {text}

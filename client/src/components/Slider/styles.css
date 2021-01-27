@@ -1,0 +1,16 @@
+.App > div {
+  width: "100%";
+  color: #fff;
+  display: block;
+  text-align: center;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #881798;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: #000;
+  text-align: center;
+}

@@ -6,6 +6,9 @@ import { GlobalState } from "../../GlobalState";
 
 export const useStyles = makeStyles(() => ({
   Cart: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     "@media (min-width: 900px)": {
       marginLeft: "20px",
     },

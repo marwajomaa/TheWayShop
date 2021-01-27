@@ -73,7 +73,7 @@ export default function MediaCard({ product, handleCheck }) {
             />
             <Button
               color="secondary"
-              variant="outlined"
+              variant="contained"
               style={{ width: "50%" }}
               text="Delete"
               onClick={() => deleteProduct(_id)}
