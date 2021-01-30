@@ -4,20 +4,22 @@ import { Grid, Box, makeStyles, Typography } from "@material-ui/core";
 
 import { GlobalState } from "../../GlobalState";
 import BackLink from "../../components/BackLink";
+import Slider from "../../components/Slider";
 import img from "../../assets/img.jpg";
 import Button from "../../components/Button";
 import ProductItem from "../Products/ProductItem";
 import Loading from "../../components/Loading";
 import Alert from "../../components/Alert.js";
+import images from "../../constants/images";
 
 const useStyle = makeStyles((theme) => ({
   root: {
-    width: "90%",
+    width: "100%",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
     flexWrap: "wrap",
-    padding: "50px",
+    // padding: "50px",
     fontSize: "15%",
   },
   image: {
@@ -25,13 +27,13 @@ const useStyle = makeStyles((theme) => ({
     width: "100%",
     height: "100%",
     objectFit: "contain",
-    margin: "20px",
+    margin: "20px auto",
     display: "block",
   },
   boxDetails: {
     maxWidth: "400px",
-    margin: "0 20px",
-    paddingLeft: "20px",
+    padding: "20px",
+    paddingTop: "30px",
     width: "100%",
   },
   title: {
@@ -84,7 +86,10 @@ function ProductDetails() {
 
       {error && <Alert text={error} type="error" title="Error" />}
       <Grid container xs={12} className={classes.root}>
-        <img src={img} alt={title} className={classes.image} />
+        <Grid xs={12} md={6}>
+          {/* <Slider images={images} /> */}
+          <img src={img} alt={title} className={classes.image} />
+        </Grid>
         <Box item className={classes.boxDetails}>
           <Typography
             gutterBottom

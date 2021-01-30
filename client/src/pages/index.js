@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { useState, useContext, useLayoutEffect, useEffect } from "react";
+import { Switch, Route, useLocation } from "react-router-dom";
 import { GlobalState } from "../GlobalState";
 import Products from "./Products";
 import ProductDetails from "./ProductDetails";
@@ -16,6 +16,12 @@ import HomePage from "./HomePage";
 import NotFound from "./404Page";
 
 function Pages({ style }) {
+  const location = useLocation();
+  // Scroll to top if path changes
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   const state = useContext(GlobalState);
   const [isLoggedIn] = state.userAPI.isLoggedIn;
   const [isAdmin] = state.userAPI.isAdmin;
