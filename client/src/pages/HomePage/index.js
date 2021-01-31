@@ -2,6 +2,7 @@ import React from "react";
 import HeroSection from "../../components/HeroSection";
 import Categories from "../../components/Categories";
 import BestSelling from "./BestSelling";
+import FeaturedProducts from "./FeaturedProducts";
 
 function HomePage() {
   return (
@@ -9,6 +10,7 @@ function HomePage() {
       <HeroSection />
       <Categories />
       <BestSelling />
+      <FeaturedProducts />
     </div>
   );
 }
