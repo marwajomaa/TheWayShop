@@ -5,13 +5,14 @@ const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     alignItems: "center",
+    padding: "2rem 0",
   },
   title: {
     flex: 2,
     padding: "2rem 0",
     textAlign: "center",
-    fontWeight: "700",
-    fontSize: "2rem",
+    fontWeight: "900",
+    fontSize: "1.5rem",
   },
   line: {
     flex: 1,

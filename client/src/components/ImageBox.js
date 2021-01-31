@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Grid, makeStyles } from "@material-ui/core";
-import headPhoneImg from "../assets/headPhone.jpg";
+import headPhoneImg from "../assets/img1.jpg";
 import labtopImg from "../assets/img.jpg";
-import hatsImg from "../assets/hat.jpg";
+import hatsImg from "../assets/hats.jpg";
 import shoes from "../assets/shoes.jpg";
+import img from "../assets/images/blog-img-02.jpg";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -31,6 +32,7 @@ function ImageBox({ product }) {
       } else if (product.category === "labtops") setImage(labtopImg);
       else if (product.category === "hats") setImage(hatsImg);
       else if (product.category === "shoes") setImage(shoes);
+      else setImage(img);
     };
     setImg();
   }, []);
@@ -57,22 +59,10 @@ function ImageBox({ product }) {
               padding: "0 10px",
             }}
           >
-            <p
-              style={{
-                fontSize: "1.5rem",
-                fontWeight: 500,
-              }}
-            >
-              {product.title}
-            </p>
-            <p
-              style={{
-                fontSize: "1rem",
-                fontWeight: 300,
-              }}
-            >
+            <h3>{product.title}</h3>
+            <h3>
               Sold:<strong>{product.sold}</strong>
-            </p>
+            </h3>
           </div>
         </div>
       </Link>

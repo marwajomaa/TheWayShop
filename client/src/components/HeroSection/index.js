@@ -13,6 +13,7 @@ const StyledHero = styled("div")`
   background-position: center center;
   object-fit: contain;
   vertical-align: middle;
+  position: relative;
 
   &:hover {
     opacity: 0.7;
@@ -65,7 +66,9 @@ function HeroSection() {
             color: "white",
             position: "absolute",
             right: "100px",
-            bottom: 0,
+            position: "absolute",
+            bottom: "30px",
+            right: "20px",
             backgroundColor: "red",
           }}
           href="/products"

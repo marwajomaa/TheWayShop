@@ -58,7 +58,7 @@ function Sales() {
         style={{
           width: "100%",
           height: "250px",
-          backgroundColor: "rgba(0,0,0,0.7)",
+          backgroundColor: "rgba(0,0,0,0.8)",
           padding: "10px 0",
           margin: "20px auto",
           alignItems: "center",
