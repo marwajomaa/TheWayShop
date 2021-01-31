@@ -4,6 +4,7 @@ import Categories from "../../components/Categories";
 import BestSelling from "./BestSelling";
 import FeaturedProducts from "./FeaturedProducts";
 import SalesSlider from "./SalesSlider";
+import Footer from "../../components/Footer";
 
 function HomePage() {
   return (
@@ -13,6 +14,7 @@ function HomePage() {
       <BestSelling />
       <FeaturedProducts />
       <SalesSlider />
+      <Footer />
     </div>
   );
 }
