@@ -9,11 +9,8 @@ const useStyle = makeStyles((theme) => ({
   root: {
     width: "95%",
     margin: "0 auto",
-    marginBottom: "20px",
   },
   main: {
-    padding: "10px",
-    margin: "0 auto",
     marginTop: "130px",
     minHeight: "100vh",
     width: "100%",
