@@ -101,7 +101,7 @@ function UserApi() {
     }
   };
 
-  const cartUpdate = async (cart) => {
+  const cartUpdate = async () => {
     try {
       await axios.patch(
         "/api/users/cart",
@@ -157,6 +157,7 @@ function UserApi() {
 
   const tranSuccess = async (payment) => {
     const { paymentID, address } = payment;
+    console.log(cart, paymentID, address, "pppppppppp");
     setLoading(true);
     await axios.post(
       "/api/payments",
@@ -165,7 +166,7 @@ function UserApi() {
     );
     setLoading(false);
     setCart([]);
-    await cartUpdate([]);
+    await cartUpdate();
     setCallback(!callback);
     setAlert("You have successfully placed an order");
     setSuccess(true);
