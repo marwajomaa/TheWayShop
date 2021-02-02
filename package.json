@@ -9,9 +9,7 @@
   },
   "scripts": {
     "start": "node server/index.js",
-    "build:server": "DEBUG=server babel server --out-dir dist",
-    "build": "npm run clean && npm run build:server",
-    "heroku-postbuild": "npm run init:both && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
