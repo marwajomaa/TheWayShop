@@ -87,7 +87,6 @@ function ProductDetails() {
 
   const { title, description, sold, content, price, _id } = productDetails;
   const classes = useStyle();
-  if (productDetails.length === 0) return <Loading />;
 
   return (
     <Layout>

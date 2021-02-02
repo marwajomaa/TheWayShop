@@ -25,14 +25,6 @@ function Products() {
   const { deleteProduct } = state.productsAPI;
   const [isCheck, setIsCheck] = useState(false);
 
-  if (!products) return <Loading />;
-  if (products.length === 0)
-    return (
-      <Typography variant="h4" component="h4" style={{ textAlign: "center" }}>
-        No Products
-      </Typography>
-    );
-
   const handleCheck = (id) => {
     products.forEach((product) => {
       if (product._id === id) product.checked = !isCheck;
@@ -56,9 +48,19 @@ function Products() {
     setIsCheck(false);
   };
 
+  if (!products) return <Loading />;
   return (
     <Layout>
       <Grid container spacing={5}>
+        {products.length === 0 && (
+          <Typography
+            variant="h4"
+            component="h4"
+            style={{ textAlign: "center" }}
+          >
+            No Products
+          </Typography>
+        )}
         {loading && <Loading />}
         {alert && isLoggedIn && (
           <Alert text={alert} type={success ? "success" : "error"} />
