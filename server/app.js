@@ -10,13 +10,6 @@ const path = require("path");
 
 const app = express();
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "..", "client", "build")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
-  });
-}
-
 //Middlewares
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
@@ -32,6 +25,13 @@ app.use(fileUpload({ useTemplate: true }));
 app.use(express.static(`${__dirname}/public`));
 
 app.use("/api", router);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "..", "client", "build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
+  });
+}
 
 //Middleware that handles error for unsupported routes
 app.use(async (req, res, next) => {

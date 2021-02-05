@@ -29,7 +29,7 @@ function Pages({ style }) {
   return (
     <div className={style}>
       <Switch>
-        <Route path="/" exact path="/" component={HomePage} />
+        <Route path="/" exact component={HomePage} />
         <Route exact path="/products" component={Products} />
         <Route
           path="/"
